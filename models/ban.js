@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Ban.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
-    //Ban.hasOne(models.Player)
+    // Ban.hasOne(models.Player)
   };
   return Ban;
 };
