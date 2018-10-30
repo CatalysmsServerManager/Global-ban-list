@@ -1,5 +1,3 @@
-
-
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -20,12 +18,13 @@ if (config.use_env_variable) {
 // Test the database connection.
 sequelize
   .authenticate()
-  .then(() => {
-    console.log('Database connection has been established successfully.');
-  })
+  .then(() => {})
   .catch((err) => {
     throw err;
   });
+
+sequelize.sync();
+
 
 fs
   .readdirSync(__dirname)
@@ -41,7 +40,7 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
-sequelize.sync();
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

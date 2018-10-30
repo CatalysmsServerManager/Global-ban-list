@@ -2,7 +2,7 @@
   "dev": {
     "username": "root",
     "password": null,
-    "database": "database_development",
+    "database": "gbl_development",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "use_env_variable": "DBSTRING"
@@ -10,15 +10,16 @@
   "test": {
     "username": "root",
     "password": null,
-    "database": "database_test",
+    "database": "gbl_development",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "use_env_variable": "DBSTRING"
+    "use_env_variable": "DBSTRING",
+    "logging": false
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "database_production",
+    "database": "gbl_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "use_env_variable": "DBSTRING"
