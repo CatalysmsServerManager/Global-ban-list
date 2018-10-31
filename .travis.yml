@@ -4,9 +4,13 @@ node_js:
   - 9
   - 8
   - 7
-  - 6
+services:
+  - mysql
+before_install:
+  - mysql -e 'CREATE DATABASE gbl_development;'
 install:
   -  npm install
 script:
   -  npm run lint
   -  npm test
+

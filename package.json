@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "./node_modules/.bin/mocha",
+    "test": "./node_modules/.bin/mocha --exit",
     "lint": "./node_modules/.bin/eslint routes/ models/"
   },
   "dependencies": {
@@ -14,14 +14,19 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "luxon": "^1.4.5",
     "morgan": "~1.9.0",
     "mysql2": "^1.6.1",
-    "sequelize": "^4.41.0"
+    "sequelize": "^4.41.0",
+    "validator": "^10.8.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
+    "faker": "^4.1.0",
     "mocha": "^5.2.0",
     "sequelize-cli": "^5.2.0"
   }
