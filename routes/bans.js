@@ -14,6 +14,21 @@ module.exports = (app) => {
     });
   });
 
+  // GET one ban by id
+  app.get('/ban/:id', (req, res) => {
+    const {
+      id,
+    } = req.params;
+    return app.models.Ban.findByPk(id)
+      .then((ban) => {
+        if (ban === null) {
+          res.status(404);
+          return res.end();
+        }
+        return res.json(ban);
+      });
+  });
+
   /* POST ban listing. */
   router.post('/', (req, res) => {
     if (req.body.bannedUntil === undefined) {

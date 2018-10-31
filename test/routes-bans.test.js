@@ -1,4 +1,4 @@
-//During the test the env variable is set to test
+// During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
 //Require the dev-dependencies
@@ -31,6 +31,34 @@ describe('API v1 - Ban', () => {
           res.should.have.status(200);
           res.body.should.be.a('array');
           res.body.length.should.be.eql(0);
+          done();
+        });
+    });
+  });
+
+  describe('GET /ban/:id', () => {
+
+    let createdBan;
+
+    before(async () => {
+      createdBan = await mockBan();
+    })
+
+    it('it should return 200 for a valid ID.', (done) => {
+      chai.request(server)
+        .get(`/ban/${createdBan.id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.id.should.be.equal(createdBan.id)
+          done();
+        });
+    });
+
+    it('it should return 404 for a unknown ID.', (done) => {
+      chai.request(server)
+        .get(`/ban/${createdBan.id + 250}`)
+        .end((err, res) => {
+          res.should.have.status(404);
           done();
         });
     });
@@ -100,3 +128,17 @@ describe('API v1 - Ban', () => {
 
 
 });
+
+
+const acceptedReasons = sequelize.models.Ban.attributes.reason.values;
+
+function mockBan() {
+
+  let ban = {
+    bannedUntil: faker.date.future(),
+    reason: acceptedReasons[Math.floor(Math.random() * acceptedReasons.length)]
+  }
+
+  return sequelize.models.Ban.create(ban)
+
+}
