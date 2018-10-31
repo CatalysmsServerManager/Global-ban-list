@@ -15,6 +15,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+
 // Test the database connection.
 sequelize
   .authenticate()
@@ -22,8 +23,6 @@ sequelize
   .catch((err) => {
     throw err;
   });
-
-sequelize.sync();
 
 
 fs
