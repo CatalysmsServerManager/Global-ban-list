@@ -1,16 +1,13 @@
-
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const Game = sequelize.define('Game', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
     },
-    username: DataTypes.STRING,
-    steamId: DataTypes.STRING,
   }, {});
-  User.associate = (models) => { // eslint-disable-line no-unused-vars
+  Game.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
   };
-  return User;
+  return Game;
 };

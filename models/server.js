@@ -1,17 +1,17 @@
+Const crypto = require('crypto');
+
 module.exports = (sequelize, DataTypes) => {
-  const Player = sequelize.define('Player', {
+  const Server = sequelize.define('Server', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
     },
-    steamId: {
-      type: DataTypes.STRING,
-    },
     username: DataTypes.STRING,
+    steamId: DataTypes.STRING,
   }, {});
-  Player.associate = (models) => { // eslint-disable-line no-unused-vars
+  Server.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
   };
-  return Player;
+  return Server;
 };
