@@ -39,9 +39,10 @@ app.models.Reason.findOrCreate({
 
 const usersRouter = require('./routes/users')(app);
 const bansRouter = require('./routes/bans')(app);
-
+const pagesRouter = require('./routes/pages')(app);
 
 // view engine setup
+app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 if (process.env.NODE_ENV !== 'test') {
@@ -55,7 +56,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', express.static('public'));
+app.use('/', pagesRouter);
 app.use('/user', usersRouter);
 app.use('/ban', bansRouter);
 
