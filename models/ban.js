@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.ENUM,
       values: ['active', 'deleted', 'elapsed'],
+      defaultValue: 'active',
       required: true,
     },
     deletedAt: DataTypes.DATE,

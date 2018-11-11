@@ -54,7 +54,7 @@ module.exports = (app) => {
       return res.end();
     }
 
-    let isValidReason = false;
+    /*    let isValidReason = false;
     const acceptedReasons = app.models.Ban.attributes.reason.values;
 
     acceptedReasons.forEach((r) => {
@@ -68,7 +68,7 @@ module.exports = (app) => {
       res.status(400);
       res.send(`Reason must be one of: ${acceptedReasons.join(', ')}`);
       return res.end();
-    }
+    } */
 
     return app.models.Ban.create({
       bannedUntil: req.body.bannedUntil,
