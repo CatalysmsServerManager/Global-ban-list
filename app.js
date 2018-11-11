@@ -13,27 +13,36 @@ const app = express();
 // Initialize database connection
 app.models = require('./models');
 
-
 app.models.sequelize.sync();
 
+// Create default reason values
 app.models.Reason.findOrCreate({
   where: {
     reasonShort: 'Hacking',
     reasonLong: 'User has used external tools to gain an unfair advantage in the game.',
   },
-}).error((e) => {
-  throw new Error('Error while creating default ban reasons.', e);
 });
 
+app.models.Reason.findOrCreate({
+  where: {
+    reasonShort: 'Racism',
+    reasonLong: 'User has said racial slurs.',
+  },
+});
 
-const indexRouter = require('./routes/index')(app);
+app.models.Reason.findOrCreate({
+  where: {
+    reasonShort: 'Other',
+    reasonLong: 'General reason when the defaults do not cover the actual reason of the ban.',
+  },
+});
+
 const usersRouter = require('./routes/users')(app);
 const bansRouter = require('./routes/bans')(app);
 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger('dev'));
@@ -46,7 +55,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/', express.static('public'));
 app.use('/user', usersRouter);
 app.use('/ban', bansRouter);
 

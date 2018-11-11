@@ -1,3 +1,6 @@
+const {
+  DateTime,
+} = require('luxon');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -8,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     username: DataTypes.STRING,
     steamId: DataTypes.STRING,
+    lastVisited: {
+      type: DataTypes.DATE,
+      defaultValue: () => DateTime.local().toISO(),
+    },
   }, {});
   User.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
