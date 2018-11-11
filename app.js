@@ -1,14 +1,14 @@
 // Load environment config variables
 require('dotenv').config();
 
-let createError = require('http-errors');
-let express = require('express');
-let path = require('path');
-let cookieParser = require('cookie-parser');
-let logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
 
-let app = express();
+const app = express();
 
 // Initialize database connection
 app.models = require('./models');
@@ -16,10 +16,19 @@ app.models = require('./models');
 
 app.models.sequelize.sync();
 
+app.models.Reason.findOrCreate({
+  where: {
+    reasonShort: 'Hacking',
+    reasonLong: 'User has used external tools to gain an unfair advantage in the game.',
+  },
+}).error((e) => {
+  throw new Error('Error while creating default ban reasons.', e);
+});
 
-let indexRouter = require('./routes/index')(app);
-let usersRouter = require('./routes/users')(app);
-let bansRouter = require('./routes/bans')(app);
+
+const indexRouter = require('./routes/index')(app);
+const usersRouter = require('./routes/users')(app);
+const bansRouter = require('./routes/bans')(app);
 
 
 // view engine setup
@@ -32,7 +41,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use(express.json());
 app.use(express.urlencoded({
-  extended: false
+  extended: false,
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -42,13 +51,13 @@ app.use('/user', usersRouter);
 app.use('/ban', bansRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-  console.log(err)
+app.use((err, req, res) => {
+  console.log(err);
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'dev' ? err : {};

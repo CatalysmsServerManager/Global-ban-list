@@ -1,5 +1,3 @@
-Const crypto = require('crypto');
-
 module.exports = (sequelize, DataTypes) => {
   const Server = sequelize.define('Server', {
     id: {

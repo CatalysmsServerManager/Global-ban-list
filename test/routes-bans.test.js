@@ -1,25 +1,39 @@
 // During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
-//Require the dev-dependencies
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('../bin/www');
-let should = chai.should();
-
+// Require the dev-dependencies
 const faker = require('faker');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+
+// Start the server
+const server = require('../bin/www');
+
+const should = chai.should(); // eslint-disable-line no-unused-vars
+
 const {
-  sequelize
+  sequelize,
 } = require('../models');
 
 chai.use(chaiHttp);
 
+
+const acceptedReasons = sequelize.models.Reason.attributes.reason.values;
+
+function mockBan() {
+  const ban = {
+    bannedUntil: faker.date.future(),
+    reason: acceptedReasons[Math.floor(Math.random() * acceptedReasons.length)],
+  };
+
+  return sequelize.models.Ban.create(ban);
+}
+
+
 describe('API v1 - Ban', () => {
-
-
   before(async () => {
     await sequelize.sync({
-      force: true
+      force: true,
     });
   });
 
@@ -37,19 +51,18 @@ describe('API v1 - Ban', () => {
   });
 
   describe('GET /ban/:id', () => {
-
     let createdBan;
 
     before(async () => {
       createdBan = await mockBan();
-    })
+    });
 
     it('it should return 200 for a valid ID.', (done) => {
       chai.request(server)
         .get(`/ban/${createdBan.id}`)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.id.should.be.equal(createdBan.id)
+          res.body.id.should.be.equal(createdBan.id);
           done();
         });
     });
@@ -70,7 +83,7 @@ describe('API v1 - Ban', () => {
         .post('/ban')
         .send({
           bannedUntil: faker.date.future(),
-          reason: 'other'
+          reason: 'other',
         })
         .end((err, res) => {
           res.should.have.status(200);
@@ -82,7 +95,7 @@ describe('API v1 - Ban', () => {
         .post('/ban')
         .send({
           bannedUntil: faker.date.past(),
-          reason: 'other'
+          reason: 'other',
         })
         .end((err, res) => {
           res.should.have.status(400);
@@ -93,8 +106,8 @@ describe('API v1 - Ban', () => {
       chai.request(server)
         .post('/ban')
         .send({
-          bannedUntil: "not a date",
-          reason: 'other'
+          bannedUntil: 'not a date',
+          reason: 'other',
         })
         .end((err, res) => {
           res.should.have.status(400);
@@ -105,7 +118,7 @@ describe('API v1 - Ban', () => {
       chai.request(server)
         .post('/ban')
         .send({
-          reason: 'other'
+          reason: 'other',
         })
         .end((err, res) => {
           res.should.have.status(400);
@@ -117,7 +130,7 @@ describe('API v1 - Ban', () => {
         .post('/ban')
         .send({
           bannedUntil: faker.date.future(),
-          reason: 'being a nice person :)'
+          reason: 'being a nice person :)',
         })
         .end((err, res) => {
           res.should.have.status(400);
@@ -125,20 +138,4 @@ describe('API v1 - Ban', () => {
         });
     });
   });
-
-
 });
-
-
-const acceptedReasons = sequelize.models.Ban.attributes.reason.values;
-
-function mockBan() {
-
-  let ban = {
-    bannedUntil: faker.date.future(),
-    reason: acceptedReasons[Math.floor(Math.random() * acceptedReasons.length)]
-  }
-
-  return sequelize.models.Ban.create(ban)
-
-}

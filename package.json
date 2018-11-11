@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "./node_modules/.bin/mocha --exit",
-    "lint": "./node_modules/.bin/eslint routes/ models/"
+    "lint": "./node_modules/.bin/eslint routes/ models/ test/ app.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
