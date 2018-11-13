@@ -66,9 +66,11 @@ module.exports = (app) => {
     }
 
     let isValidReason = false;
+    let ReasonId;
     app.supportedReasons.forEach((r) => {
       if (req.body.reason === r.reasonShort) {
         isValidReason = true;
+        ReasonId = r.id;
       }
     });
 
@@ -78,9 +80,26 @@ module.exports = (app) => {
       return res.end();
     }
 
+    let isValidGame = false;
+    let GameId;
+    app.supportedGames.forEach((game) => {
+      if (req.body.game === game.code) {
+        isValidGame = true;
+        GameId = game.id;
+      }
+    });
+
+    if (!isValidGame) {
+      res.status(400);
+      res.send(`Game must be one of: ${app.supportedGames.map(game => game.code).join(', ')}`);
+      return res.end();
+    }
+
+
     return app.models.Ban.create({
       bannedUntil,
-      reason: req.body.reason,
+      ReasonId,
+      GameId,
       PlayerId: playerProfiles[0].id,
     }).then((newBan) => {
       res.send(newBan);

@@ -21,9 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Ban.belongsTo(models.User, {
       as: 'bannedBy',
-    });
-    Ban.belongsTo(models.User, {
-      as: 'deletedBy',
+      foreignKey: {
+        allowNull: false,
+      },
+      onDelete: 'CASCADE',
     });
     Ban.belongsTo(models.Server, {
       foreignKey: {
