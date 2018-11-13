@@ -30,17 +30,28 @@ module.exports = (app) => {
   });
 
   /* POST ban listing. */
-  router.post('/', (req, res, next) => {
+  router.post('/', async (req, res, next) => {
     if (req.body.bannedUntil === undefined) {
       res.status(400);
       res.send('bannedUntil is required.');
       return res.end();
     }
 
-    const bannedUntil = DateTime.fromISO(req.body.bannedUntil);
+    if (req.body.steamId === undefined) {
+      res.status(400);
+      res.send('steamId is required.');
+      return res.end();
+    }
 
+    const {
+      bannedUntil,
+      steamId,
+    } = req.body;
 
-    if (!bannedUntil.isValid) {
+    const bannedUntilDate = DateTime.fromISO(bannedUntil);
+    const playerProfiles = await app.helpers.getSteamProfiles([steamId]);
+
+    if (!bannedUntilDate.isValid) {
       res.status(400);
       res.send('bannedUntil must be in ISO 8601 format.');
       return res.end();
@@ -48,7 +59,7 @@ module.exports = (app) => {
 
     const dateNow = Date.now();
 
-    if (bannedUntil.toMillis() < dateNow) {
+    if (bannedUntilDate.toMillis() < dateNow) {
       res.status(400);
       res.send('bannedUntil must be in the future.');
       return res.end();
@@ -70,9 +81,10 @@ module.exports = (app) => {
       return res.end();
     } */
 
-    app.models.Ban.create({
-      bannedUntil: req.body.bannedUntil,
+    return app.models.Ban.create({
+      bannedUntil,
       reason: req.body.reason,
+      PlayerId: playerProfiles[0].id,
     }).then((newBan) => {
       res.send(newBan);
     }).catch((e) => {

@@ -27,27 +27,27 @@ module.exports = (sequelize, DataTypes) => {
     });
     Ban.belongsTo(models.Server, {
       foreignKey: {
-        allowNull: false
+        allowNull: false,
       },
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
     });
     Ban.belongsTo(models.Player, {
       foreignKey: {
-        allowNull: false
+        allowNull: false,
       },
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
     });
     Ban.belongsTo(models.Server, {
       foreignKey: {
-        allowNull: false
+        allowNull: false,
       },
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
     });
     Ban.belongsTo(models.Reason, {
       foreignKey: {
-        allowNull: false
+        allowNull: false,
       },
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
     });
   };
   return Ban;
