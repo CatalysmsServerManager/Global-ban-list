@@ -6,6 +6,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const fs = require('fs');
 
 
 const app = express();
@@ -55,5 +56,18 @@ app.use((err, req, res) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+// Register helper functions
+app.helpers = [];
+fs
+  .readdirSync(`${__dirname}/helpers`)
+  .filter(file => (file.indexOf('.') !== 0) && (file.slice(-3) === '.js'))
+  .forEach((file) => {
+    const helper = require(`${__dirname}/helpers/${file}`); // eslint-disable-line
+    app.helpers.push(file);
+  });
+
+console.log(app.helpers);
 
 module.exports = app;
