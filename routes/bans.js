@@ -30,7 +30,7 @@ module.exports = (app) => {
   });
 
   /* POST ban listing. */
-  router.post('/', (req, res) => {
+  router.post('/', (req, res, next) => {
     if (req.body.bannedUntil === undefined) {
       res.status(400);
       res.send('bannedUntil is required.');
@@ -70,11 +70,13 @@ module.exports = (app) => {
       return res.end();
     } */
 
-    return app.models.Ban.create({
+    app.models.Ban.create({
       bannedUntil: req.body.bannedUntil,
       reason: req.body.reason,
     }).then((newBan) => {
       res.send(newBan);
+    }).catch((e) => {
+      next(e);
     });
   });
 

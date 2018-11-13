@@ -11,7 +11,8 @@ This application keeps track of players that get banned from game servers. This 
 3. Run `npm install` to install the dependencies
 4. Copy `.env.example` to `.env`
 5. Fill in the database connection info
-6. `npm start`
+6. Run the db seeding script `npm run db:seed`
+7. `npm start`
 
 ## Tests
 

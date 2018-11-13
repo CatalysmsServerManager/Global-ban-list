@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "./node_modules/.bin/mocha --exit",
-    "lint": "./node_modules/.bin/eslint routes/ models/ test/ app.js public/js"
+    "lint": "./node_modules/.bin/eslint routes/ models/ test/ app.js public/js",
+    "db:seed": "./node_modules/.bin/sequelize db:seed:all"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

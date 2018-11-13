@@ -13,30 +13,7 @@ const app = express();
 // Initialize database connection
 app.models = require('./models');
 
-app.models.sequelize.sync().then(() => {
-
-  // Create default reason values
-  app.models.Reason.findOrCreate({
-    where: {
-      reasonShort: 'Hacking',
-      reasonLong: 'User has used external tools to gain an unfair advantage in the game.',
-    },
-  });
-  
-  app.models.Reason.findOrCreate({
-    where: {
-      reasonShort: 'Racism',
-      reasonLong: 'User has said racial slurs.',
-    },
-  });
-  
-  app.models.Reason.findOrCreate({
-    where: {
-      reasonShort: 'Other',
-      reasonLong: 'General reason when the defaults do not cover the actual reason of the ban.',
-    },
-  });
-});
+app.models.sequelize.sync();
 
 
 const usersRouter = require('./routes/users')(app);
