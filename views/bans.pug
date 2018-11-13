@@ -4,5 +4,22 @@ html
 
   body
   include includes/navbar.pug
-  h1= "Bans are here"
-  
+  include includes/errorModal.pug
+  btn(class="btn btn-primary", data-toggle="modal", data-target="#modal-add-ban") Add a ban
+  div(class="modal fade", id="modal-add-ban" tabindex="-1", role="dialog")
+    div(class="modal-dialog", role="document")
+      div(class="modal-content")
+        div(class="modal-header")
+          h4 Add a ban
+          button(type="button", class="close", data-dismiss="modal", aria-label="Close")
+            span(aria-hidden="true") &times;
+        div(class="modal-body")
+          form
+            div(class="form-group")
+              label(for="form-ban-add-steamId") Steam ID
+              input(type="text", class="form-control", id="form-ban-add-steamId", aria-describedby="steamIdHelp")
+              small(id="steamIdHelp", class="form-text text-muted") The Steam ID of the banned player
+            div(class="form-group")
+              label(for="form-ban-add-bannedUntil") Banned until
+              input(type="datetime-local", class="form-control", id="form-ban-add-bannedUntil", aria-describedby="bannedUntilHelp")
+              small(id="bannedUntilHelp", class="form-text text-muted") Until when the player is banned.

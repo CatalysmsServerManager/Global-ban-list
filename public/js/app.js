@@ -11,5 +11,4 @@ function showErrorModal(errorMessage) {
 
 $(document).ready(() => {
   console.log('Initializing app');
-  showErrorModal('Testing');
 });
