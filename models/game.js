@@ -5,6 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {});
   Game.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
