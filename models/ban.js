@@ -25,10 +25,30 @@ module.exports = (sequelize, DataTypes) => {
     Ban.belongsTo(models.User, {
       as: 'deletedBy',
     });
-    Ban.belongsTo(models.Server);
-    Ban.belongsTo(models.Player);
-    Ban.belongsTo(models.Server);
-    Ban.belongsTo(models.Reason);
+    Ban.belongsTo(models.Server, {
+      foreignKey: {
+        allowNull: false
+      },
+      onDelete: 'CASCADE'
+    });
+    Ban.belongsTo(models.Player, {
+      foreignKey: {
+        allowNull: false
+      },
+      onDelete: 'CASCADE'
+    });
+    Ban.belongsTo(models.Server, {
+      foreignKey: {
+        allowNull: false
+      },
+      onDelete: 'CASCADE'
+    });
+    Ban.belongsTo(models.Reason, {
+      foreignKey: {
+        allowNull: false
+      },
+      onDelete: 'CASCADE'
+    });
   };
   return Ban;
 };
