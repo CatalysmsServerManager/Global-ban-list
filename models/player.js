@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     steamId: {
       type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
     },
     username: DataTypes.STRING,
   }, {});

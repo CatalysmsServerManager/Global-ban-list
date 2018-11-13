@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "./node_modules/.bin/mocha --exit",
-    "lint": "./node_modules/.bin/eslint routes/ models/ test/ app.js public/js",
+    "lint": "./node_modules/.bin/eslint routes/ models/ test/ helpers/ app.js public/js",
     "db:seed": "./node_modules/.bin/sequelize db:seed:all"
   },
   "dependencies": {
@@ -18,6 +18,8 @@
     "morgan": "~1.9.0",
     "mysql2": "^1.6.1",
     "pug": "^2.0.3",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
     "sequelize": "^4.41.0",
     "validator": "^10.8.0"
   },
