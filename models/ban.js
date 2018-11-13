@@ -49,6 +49,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: 'CASCADE',
     });
+    Ban.belongsTo(models.Game, {
+      foreignKey: {
+        allowNull: false,
+      },
+      onDelete: 'CASCADE',
+    });
   };
   return Ban;
 };

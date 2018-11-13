@@ -13,7 +13,29 @@ const app = express();
 // Initialize database connection
 app.models = require('./models');
 
-app.models.sequelize.sync();
+console.log('-----------------------------------------');
+console.log(' ');
+console.log('Starting database initialization.');
+console.log(' ');
+console.log('-----------------------------------------');
+app.models.sequelize.sync().then(() => {
+  console.log('-----------------------------------------');
+  console.log(' ');
+  console.log('Finished database initialization');
+  console.log(' ');
+  console.log('-----------------------------------------');
+  app.models.Game.findAll().then((games) => {
+    const supportedGames = games.map(game => game.dataValues);
+    app.supportedGames = supportedGames;
+    console.log(`Initialized ${supportedGames.length} supported games. ${supportedGames.map(game => game.fullName).join(', ')}`)
+  });
+
+  app.models.Reason.findAll().then((reasons) => {
+    const supportedReasons = reasons.map(reason => reason.dataValues);
+    app.supportedReasons = supportedReasons;
+    console.log(`Initialized ${supportedReasons.length} supported reasons. ${supportedReasons.map(reason => reason.reasonShort).join(', ')}`)
+  });
+});
 
 
 const usersRouter = require('./routes/users')(app);
@@ -68,6 +90,7 @@ fs
     const boundHelper = helper.bind(helper, app.models);
     app.helpers[file.replace('.js', '')] = boundHelper;
   });
+
 
 
 module.exports = app;
