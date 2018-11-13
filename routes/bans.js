@@ -65,21 +65,18 @@ module.exports = (app) => {
       return res.end();
     }
 
-    /*    let isValidReason = false;
-    const acceptedReasons = app.models.Ban.attributes.reason.values;
-
-    acceptedReasons.forEach((r) => {
-      if (req.body.reason === r) {
+    let isValidReason = false;
+    app.supportedReasons.forEach((r) => {
+      if (req.body.reason === r.reasonShort) {
         isValidReason = true;
       }
     });
 
-
     if (!isValidReason) {
       res.status(400);
-      res.send(`Reason must be one of: ${acceptedReasons.join(', ')}`);
+      res.send(`Reason must be one of: ${app.supportedReasons.map(r => r.reasonShort).join(', ')}`);
       return res.end();
-    } */
+    }
 
     return app.models.Ban.create({
       bannedUntil,
