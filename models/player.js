@@ -10,10 +10,14 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
     },
-    username: DataTypes.STRING,
+    username: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   }, {});
   Player.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
+    Player.belongsTo(models.User, {});
   };
   return Player;
 };

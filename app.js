@@ -91,6 +91,8 @@ fs
     app.helpers[file.replace('.js', '')] = boundHelper;
   });
 
-
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});
 
 module.exports = app;

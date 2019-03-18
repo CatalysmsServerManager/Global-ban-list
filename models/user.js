@@ -9,8 +9,15 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
     },
-    username: DataTypes.STRING,
-    steamId: DataTypes.STRING,
+    username: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    steamId: {
+      type: DataTypes.DATE,
+      unique: true,
+      allowNull: false,
+    },
     lastVisited: {
       type: DataTypes.DATE,
       defaultValue: () => DateTime.local().toISO(),

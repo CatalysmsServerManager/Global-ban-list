@@ -6,10 +6,17 @@ const faker = require('faker');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
+const mock = require('./mock');
+
 // Start the server
 const server = require('../bin/www');
 
 const should = chai.should(); // eslint-disable-line no-unused-vars
+
+const {
+  reasons,
+  games,
+} = require('../config/constants')
 
 const {
   sequelize,
@@ -18,23 +25,9 @@ const {
 chai.use(chaiHttp);
 
 
-const acceptedReasons = sequelize.models.Reason.attributes.reason.values;
-
-function mockBan() {
-  const ban = {
-    bannedUntil: faker.date.future(),
-    reason: acceptedReasons[Math.floor(Math.random() * acceptedReasons.length)],
-  };
-
-  return sequelize.models.Ban.create(ban);
-}
-
-
 describe('API v1 - Ban', () => {
   before(async () => {
-    await sequelize.sync({
-      force: true,
-    });
+    await sequelize.sync();
   });
 
   describe('GET /ban', () => {
@@ -44,7 +37,6 @@ describe('API v1 - Ban', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('array');
-          res.body.length.should.be.eql(0);
           done();
         });
     });
@@ -54,7 +46,7 @@ describe('API v1 - Ban', () => {
     let createdBan;
 
     before(async () => {
-      createdBan = await mockBan();
+      createdBan = await mock.ban();
     });
 
     it('it should return 200 for a valid ID.', (done) => {
@@ -83,7 +75,9 @@ describe('API v1 - Ban', () => {
         .post('/ban')
         .send({
           bannedUntil: faker.date.future(),
-          reason: 'other',
+          reason: 'Other',
+          steamId: '76561198028175941', // Hard coded valid steam ID to pass validation
+          game: '7d2d',
         })
         .end((err, res) => {
           res.should.have.status(200);

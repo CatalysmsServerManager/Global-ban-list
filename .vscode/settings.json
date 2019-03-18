@@ -13,4 +13,7 @@
           "autoFix": true
         }
       ]
+      "beautify.config": {
+        "indent_size": 2,
+      }
 }

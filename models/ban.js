@@ -16,44 +16,29 @@ module.exports = (sequelize, DataTypes) => {
       required: true,
     },
     deletedAt: DataTypes.DATE,
+    verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   }, {});
   Ban.associate = (models) => {
     // associations can be defined here
     Ban.belongsTo(models.User, {
       as: 'bannedBy',
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: 'CASCADE',
+    });
+    Ban.belongsTo(models.User, {
+      as: 'deletedBy',
     });
     Ban.belongsTo(models.Server, {
-      foreignKey: {
-        allowNull: false,
-      },
       onDelete: 'CASCADE',
     });
     Ban.belongsTo(models.Player, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: 'CASCADE',
-    });
-    Ban.belongsTo(models.Server, {
-      foreignKey: {
-        allowNull: false,
-      },
       onDelete: 'CASCADE',
     });
     Ban.belongsTo(models.Reason, {
-      foreignKey: {
-        allowNull: false,
-      },
       onDelete: 'CASCADE',
     });
     Ban.belongsTo(models.Game, {
-      foreignKey: {
-        allowNull: false,
-      },
       onDelete: 'CASCADE',
     });
   };

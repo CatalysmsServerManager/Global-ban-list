@@ -95,6 +95,11 @@ module.exports = (app) => {
       return res.end();
     }
 
+    if (playerProfiles.length === 0) {
+      res.send(`Invalid steam ID provided: ${req.body.steamId}`);
+      return res.end();
+    }
+
 
     return app.models.Ban.create({
       bannedUntil,
