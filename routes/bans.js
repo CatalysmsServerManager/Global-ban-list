@@ -24,6 +24,7 @@ module.exports = (app) => {
           where: {
             PlayerId: player.id,
           },
+          include: [app.models.Player, app.models.Game, app.models.Server, app.models.Reason]
         }).then((bans) => {
           res.send(bans);
           return res.end();
