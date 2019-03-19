@@ -1,6 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
+const _ = require('lodash');
 
 const {
   DateTime,
@@ -8,10 +9,37 @@ const {
 
 module.exports = (app) => {
   /* GET bans listing. */
-  router.get('/', (req, res) => {
-    app.models.Ban.findAll().then((bans) => {
-      res.send(bans);
-    });
+  router.get('/', (req, res, next) => {
+
+    const {
+      steamId,
+    } = req.query;
+    if (!_.isEmpty(steamId)) {
+      app.models.Player.findOne({
+        where: {
+          steamId,
+        },
+      }).then((player) => {
+        app.models.Ban.findAll({
+          where: {
+            PlayerId: player.id,
+          },
+        }).then((bans) => {
+          res.send(bans);
+          return res.end();
+        }).catch((e) => {
+          return next(e);
+        });
+      }).catch((e) => {
+        return next(e);
+      });
+    } else {
+      app.models.Ban.findAll().then((bans) => {
+        res.send(bans);
+        res.end();
+      });
+    }
+
   });
 
   // GET one ban by id
