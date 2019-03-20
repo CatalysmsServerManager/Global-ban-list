@@ -7,9 +7,9 @@ services:
 before_install:
   - mysql -e 'CREATE DATABASE gbl_development;'
 install:
-  -  npm install
+  - npm install
 script:
-  -  npm run lint
-   - npm run db:init
-  -  npm test
+  - npm run lint
+  - npm run db:init
+  - npm test
 
