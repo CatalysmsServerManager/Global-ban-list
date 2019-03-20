@@ -27,13 +27,13 @@ app.models.sequelize.sync().then(() => {
   app.models.Game.findAll().then((games) => {
     const supportedGames = games.map(game => game.dataValues);
     app.supportedGames = supportedGames;
-    console.log(`Initialized ${supportedGames.length} supported games. ${supportedGames.map(game => game.fullName).join(', ')}`)
+    console.log(`Initialized ${supportedGames.length} supported games. ${supportedGames.map(game => game.fullName).join(', ')}`);
   });
 
   app.models.Reason.findAll().then((reasons) => {
     const supportedReasons = reasons.map(reason => reason.dataValues);
     app.supportedReasons = supportedReasons;
-    console.log(`Initialized ${supportedReasons.length} supported reasons. ${supportedReasons.map(reason => reason.reasonShort).join(', ')}`)
+    console.log(`Initialized ${supportedReasons.length} supported reasons. ${supportedReasons.map(reason => reason.reasonShort).join(', ')}`);
   });
 });
 

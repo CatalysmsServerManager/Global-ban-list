@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     username: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     steamId: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },

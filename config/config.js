@@ -5,13 +5,16 @@ require('dotenv').config();
 module.exports = {
   dev: {
     url: process.env.DBSTRING,
-    "use_env_variable": "DBSTRING"
+    use_env_variable: 'DBSTRING',
+    logging: true,
   },
   test: {
-    "use_env_variable": "DBSTRING",
-    "logging": false
+    url: process.env.DBSTRING,
+    use_env_variable: 'DBSTRING',
+    logging: false
   },
   production: {
-    "use_env_variable": "DBSTRING"
+    url: process.env.DBSTRING,
+    use_env_variable: 'DBSTRING'
   }
 }

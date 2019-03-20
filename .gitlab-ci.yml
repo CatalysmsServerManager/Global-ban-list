@@ -1,0 +1,23 @@
+image: node:8.9.1
+
+cache:
+  paths:
+  - node_modules/
+
+stages:
+  - test
+
+services:
+  - mysql:5.7
+variables:
+  # Configure mysql environment variables (https://hub.docker.com/_/mysql/)
+  MYSQL_DATABASE: gbl
+  MYSQL_ROOT_PASSWORD: mysql_strong_password
+
+test:
+  stage: test
+  script:
+   - npm install
+   - npm run lint
+   - npm run db:init
+   - npm test
