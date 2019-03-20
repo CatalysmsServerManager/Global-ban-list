@@ -16,7 +16,7 @@ const should = chai.should(); // eslint-disable-line no-unused-vars
 const {
   reasons,
   games,
-} = require('../config/constants')
+} = require('../config/constants');
 
 const {
   sequelize,
@@ -26,10 +26,6 @@ chai.use(chaiHttp);
 
 
 describe('API v1 - Ban', () => {
-  before(async () => {
-    await sequelize.sync();
-  });
-
   describe('GET /ban', () => {
     it('it should GET all the bans', (done) => {
       chai.request(server)

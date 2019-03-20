@@ -6,19 +6,18 @@ const {
 } = require('../../models');
 
 module.exports = function mockServer(username, steamId) {
-
   if (_.isUndefined(username)) {
     username = faker.internet.userName();
   }
 
   if (_.isUndefined(steamId)) {
-    steamId = faker.random.number()
+    steamId = faker.random.number();
   }
 
   const user = {
     username,
-    steamId
+    steamId,
   };
 
   return sequelize.models.User.create(user);
-}
+};

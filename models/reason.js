@@ -1,6 +1,6 @@
 const {
   reasons,
-} = require('../config/constants')
+} = require('../config/constants');
 
 module.exports = (sequelize, DataTypes) => {
   const Reason = sequelize.define('Reason', {

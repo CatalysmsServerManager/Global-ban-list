@@ -5,7 +5,7 @@ const MockPlayer = require('./mockPlayer');
 
 const {
   reasons,
-  games
+  games,
 } = require('../../config/constants');
 
 const {
@@ -13,8 +13,6 @@ const {
 } = require('../../models');
 
 module.exports = async function mockBan(ServerId, PlayerId) {
-
-
   if (_.isUndefined(ServerId)) {
     const mockServer = await MockServer();
     ServerId = mockServer.id;
@@ -37,4 +35,4 @@ module.exports = async function mockBan(ServerId, PlayerId) {
   };
 
   return sequelize.models.Ban.create(ban);
-}
+};

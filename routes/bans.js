@@ -10,7 +10,6 @@ const {
 module.exports = (app) => {
   /* GET bans listing. */
   router.get('/', (req, res, next) => {
-
     const {
       steamId,
     } = req.query;
@@ -24,23 +23,18 @@ module.exports = (app) => {
           where: {
             PlayerId: player.id,
           },
-          include: [app.models.Player, app.models.Game, app.models.Server, app.models.Reason]
+          include: [app.models.Player, app.models.Game, app.models.Server, app.models.Reason],
         }).then((bans) => {
           res.send(bans);
           return res.end();
-        }).catch((e) => {
-          return next(e);
-        });
-      }).catch((e) => {
-        return next(e);
-      });
+        }).catch(e => next(e));
+      }).catch(e => next(e));
     } else {
       app.models.Ban.findAll().then((bans) => {
         res.send(bans);
         res.end();
       });
     }
-
   });
 
   // GET one ban by id

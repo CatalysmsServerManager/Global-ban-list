@@ -5,8 +5,11 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "./node_modules/.bin/mocha --exit",
-    "lint": "./node_modules/.bin/eslint routes/ models/ test/ helpers/ app.js public/js",
-    "db:seed": "./node_modules/.bin/sequelize db:seed:all"
+    "lint": "./node_modules/.bin/eslint routes/ models/ helpers/ app.js public/js",
+    "lint:fix": "npm run lint -- --fix",
+    "db:seed": "./node_modules/.bin/sequelize db:seed:all",
+    "db:migrate": "./node_modules/.bin/sequelize db:migrate",
+    "db:init": "npm run db:migrate && npm run db:seed"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -32,6 +35,7 @@
     "eslint-plugin-import": "^2.14.0",
     "faker": "^4.1.0",
     "mocha": "^5.2.0",
+    "sequelize-auto-migrations": "^1.0.3",
     "sequelize-cli": "^5.2.0"
   }
 }

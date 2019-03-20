@@ -7,7 +7,6 @@ const {
 } = require('../../models');
 
 module.exports = async function mockServer(name, ownerId) {
-
   if (_.isUndefined(name)) {
     name = faker.company.companyName();
   }
@@ -23,4 +22,4 @@ module.exports = async function mockServer(name, ownerId) {
   };
 
   return sequelize.models.Server.create(server);
-}
+};

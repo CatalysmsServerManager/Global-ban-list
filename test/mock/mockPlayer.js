@@ -7,13 +7,12 @@ const {
 } = require('../../models');
 
 module.exports = async function mockPlayer(UserId, steamId, username) {
-
   if (_.isUndefined(username)) {
     username = faker.internet.userName();
   }
 
   if (_.isUndefined(steamId)) {
-    steamId = faker.random.number()
+    steamId = faker.random.number();
   }
 
   if (_.isUndefined(UserId)) {
@@ -24,8 +23,8 @@ module.exports = async function mockPlayer(UserId, steamId, username) {
   const player = {
     steamId,
     username,
-    UserId
+    UserId,
   };
 
   return sequelize.models.Player.create(player);
-}
+};
