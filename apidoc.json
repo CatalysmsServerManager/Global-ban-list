@@ -1,0 +1,6 @@
+{
+    "name": "Global ban list",
+    "description": "API documentation for the global ban list",
+    "title": "GBL API",
+    "url" : "https://api.github.com/v1"
+  }
