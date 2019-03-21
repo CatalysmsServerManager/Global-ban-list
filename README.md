@@ -11,11 +11,15 @@ This application keeps track of players that get banned from game servers. This 
 
 1. Install [NodeJs](https://nodejs.org/en/).
 2. Clone this repo to your machine with `git clone`
-3. Run `npm install` to install the dependencies
+3. Run `npm install --only=prod` to install the dependencies
 4. Copy `.env.example` to `.env`
 5. Fill in the database connection info
-6. Run the db seeding script `npm run db:seed`
+6. Initialise database `npm run db:init`
 7. `npm start`
+
+## Configuration
+
+- Set the port with environment variable PORT.
 
 ## Tests
 
