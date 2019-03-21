@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const Passport = require('passport');
+const PassportSteam = require('passport-steam');
 
 
 const app = express();
@@ -54,6 +56,50 @@ app.use(express.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(Passport.initialize());
+app.use(Passport.session());
+
+Passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+Passport.deserializeUser((id, done) => {
+  app.models.User.findByPk(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+Passport.use(new PassportSteam({
+  returnURL: `${process.env.HOSTNAME}/auth/steam/return`,
+  realm: process.env.HOSTNAME,
+  apiKey: process.env.STEAM_API_KEY,
+},
+(async (identifier, profile, done) => {
+  const {
+    steamid,
+    personaname,
+    // eslint-disable-next-line no-underscore-dangle
+  } = profile._json;
+  try {
+    let user = await app.models.User.findOrCreate({
+      where: {
+        steamId: steamid,
+      },
+      defaults: {
+        username: personaname,
+        steamId: steamid,
+      },
+    });
+    if (user[1]) {
+      console.log(`New user registered via steam ${steamid}`);
+    }
+    user = user[0].get({ plain: true });
+    return done(null, user);
+  } catch (error) {
+    return done(error);
+  }
+})));
 
 require('./routes')(app);
 // catch 404 and forward to error handler
