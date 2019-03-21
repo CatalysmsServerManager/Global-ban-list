@@ -1,7 +1,7 @@
 # Global ban list
 
 [![Build Status](https://travis-ci.org/CatalysmsServerManager/Global-ban-list.svg?branch=master)](https://travis-ci.org/CatalysmsServerManager/Global-ban-list)
-![Coveralls github](https://img.shields.io/coveralls/github/CatalysmsServerManager/Global-ban-list.svg)
+[![Coverage Status](https://coveralls.io/repos/github/CatalysmsServerManager/Global-ban-list/badge.svg?branch=master)](https://coveralls.io/github/CatalysmsServerManager/Global-ban-list?branch=master)
 [![Discord](https://img.shields.io/discord/506805655454089216.svg)](https://discordapp.com/invite/eh4h2uF)
 [![GitHub release](https://img.shields.io/github/release/CatalysmsServerManager/Global-ban-list.svg)](https://github.com/CatalysmsServerManager/Global-ban-list/releases)
 
