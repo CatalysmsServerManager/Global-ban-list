@@ -125,8 +125,8 @@ module.exports = function postBan(app) {
       res.send(`Game must be one of: ${app.supportedGames.map(supportedGame => supportedGame.code).join(', ')}`);
       return res.end();
     }
-
     if (playerProfiles.length === 0) {
+      res.status(400);
       res.send(`Invalid steam ID provided: ${req.body.steamId}`);
       return res.end();
     }
