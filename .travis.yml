@@ -12,7 +12,34 @@ script:
   - npm run lint
   - npm run db:init
   - npm test
+
+after_success:
+  - npm pack
+  - npm run docs:api
+
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
-  - ./send.sh failure $WEBHOOK_URL
+  - "./send.sh failure $WEBHOOK_URL"
+
+deploy:
+  - provider: releases
+    api_key:
+      secure: Ap+NxH5ncMku3xn9U5vmgMLlsSv4Njp0nFyAuKVH8Vr7YAQWb9VsNceH3XyOebaNZaU8mPZyorXCznH/T0rUMf/5VIVc4mQ+NtdXczNORLa3Mro0Z5XQdAW5y3Z3x6amg8V2n8OQolkO5cwm1lxiIVAKlbH+tekhpgExIm5mF7kqjwMDVuRyFkKrEMaNgzB3cDfSPP4YAh3Wl6Kbs9kZZZKn2zcPQU2fAT5wUV/4qdLwfE5qrJAeSEUHh6v5Ro8AF0zcu2XvdPK+ykMDSirtOVHGejJZWrRRvXw69EVuNdHGBWPdg8B3sujw0G6m9J9liyFbV/C1B1DtQ/1kIJn2cjZ9VpZjkjk9FyVFxs/YGx7O1lTCiVFMOEfNudKpe7XFqu11z2FVsc2GqTbiblgUs4F6YpwiLQuHefg+xav12Ikz98fAVZj3s15tEr/21smGp5s2m2IsuiPikOmZ591c9TTPV9KO6mNTM0AwyK7ZoDC6t2MqMkSCO+7Oe0FBG5bYq6O4Vauc8iEf4FCS1qHhQkndolO4aLsdb5jasphLVmU4qcxsUtaDrAemQmvlr0LMJrjDsBAuAOxha9A/bLxcppoqQYNrYvzsCsvXelVAbFJpfmKjbDSI11eeKBJ4/2ZhFVFEhbXYgnW+5EA5mJdIlOw1RAOH/SXU9tGJgD3yz24=
+    file_glob: true
+    file: global-ban-list-*.tgz
+    skip_cleanup: true
+    on:
+      tags: true
+      repo: CatalysmsServerManager/Global-ban-list
+      
+  - provider: pages
+    skip_cleanup: true
+    keep-history: true
+    local_dir: docs/api
+    github_token: 
+      secure: Ap+NxH5ncMku3xn9U5vmgMLlsSv4Njp0nFyAuKVH8Vr7YAQWb9VsNceH3XyOebaNZaU8mPZyorXCznH/T0rUMf/5VIVc4mQ+NtdXczNORLa3Mro0Z5XQdAW5y3Z3x6amg8V2n8OQolkO5cwm1lxiIVAKlbH+tekhpgExIm5mF7kqjwMDVuRyFkKrEMaNgzB3cDfSPP4YAh3Wl6Kbs9kZZZKn2zcPQU2fAT5wUV/4qdLwfE5qrJAeSEUHh6v5Ro8AF0zcu2XvdPK+ykMDSirtOVHGejJZWrRRvXw69EVuNdHGBWPdg8B3sujw0G6m9J9liyFbV/C1B1DtQ/1kIJn2cjZ9VpZjkjk9FyVFxs/YGx7O1lTCiVFMOEfNudKpe7XFqu11z2FVsc2GqTbiblgUs4F6YpwiLQuHefg+xav12Ikz98fAVZj3s15tEr/21smGp5s2m2IsuiPikOmZ591c9TTPV9KO6mNTM0AwyK7ZoDC6t2MqMkSCO+7Oe0FBG5bYq6O4Vauc8iEf4FCS1qHhQkndolO4aLsdb5jasphLVmU4qcxsUtaDrAemQmvlr0LMJrjDsBAuAOxha9A/bLxcppoqQYNrYvzsCsvXelVAbFJpfmKjbDSI11eeKBJ4/2ZhFVFEhbXYgnW+5EA5mJdIlOw1RAOH/SXU9tGJgD3yz24=
+    on:
+      all_branches: true
+      tags: true
+      repo: CatalysmsServerManager/Global-ban-list
