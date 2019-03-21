@@ -42,6 +42,10 @@ const usersRouter = require('./routes/users')(app);
 const bansRouter = require('./routes/bans')(app);
 const pagesRouter = require('./routes/pages')(app);
 
+app.use('/', pagesRouter);
+app.use('/user', usersRouter);
+app.use('/ban', bansRouter);
+
 // view engine setup
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -57,13 +61,10 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', pagesRouter);
-app.use('/user', usersRouter);
-app.use('/ban', bansRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  next(createError(404));
+  next(createError(404, 'This page does not exist.'));
 });
 
 // error handler

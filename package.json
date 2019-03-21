@@ -9,7 +9,8 @@
     "lint:fix": "npm run lint -- --fix",
     "db:seed": "./node_modules/.bin/sequelize db:seed:all",
     "db:migrate": "./node_modules/.bin/sequelize db:migrate",
-    "db:init": "npm run db:migrate && npm run db:seed"
+    "db:init": "npm run db:migrate && npm run db:seed",
+    "docs:api": "./node_modules/.bin/apidoc -i routes/ -o docs/api/"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -28,6 +29,7 @@
     "validator": "^10.8.0"
   },
   "devDependencies": {
+    "apidoc": "^0.17.7",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "eslint": "^5.8.0",
