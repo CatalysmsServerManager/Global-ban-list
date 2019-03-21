@@ -1,6 +1,28 @@
 define({ "api": [
   {
     "type": "GET",
+    "url": "/auth/steam",
+    "title": "GET /auth/steam",
+    "name": "Steam_authentication",
+    "group": "Authentication",
+    "description": "<p>Will redirect to steam OpenID authentication</p>",
+    "version": "0.0.0",
+    "filename": "routes/auth/steam.js",
+    "groupTitle": "Authentication"
+  },
+  {
+    "type": "GET",
+    "url": "/auth/steam/return",
+    "title": "GET /auth/steam/return",
+    "name": "Steam_authentication_return",
+    "group": "Authentication",
+    "description": "<p>Return after authentication via steam</p>",
+    "version": "0.0.0",
+    "filename": "routes/auth/steamReturn.js",
+    "groupTitle": "Authentication"
+  },
+  {
+    "type": "GET",
     "url": "/ban/:id",
     "title": "GET /ban/:id",
     "name": "GET__ban__id",
