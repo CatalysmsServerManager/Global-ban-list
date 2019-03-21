@@ -1,12 +1,13 @@
+/* eslint-disable max-len */
 /**
- * 
+ *
  * @api {GET} /ban/:id GET /ban/:id
  * @apiName GET /ban/:id
  * @apiGroup Ban
- * 
- * 
+ *
+ *
  * @apiParam  {String} banId UUID of the ban to get
- * 
+ *
  * @apiSuccess {Object} ban
  * @apiSuccess {String}   ban.id UUID
  * @apiSuccess {Date}   ban.bannedUntil Date when the ban expires
@@ -27,13 +28,13 @@
  * @apiSuccess {Object} ban.server Which server this ban belongs to
  * @apiSuccess {String} ban.server.id UUID
  * @apiSuccess {String} ban.server.name name of the server
- * 
+ *
  * @apiParamExample  {String} Request-Example:
  * {
  *     "id" : "0a40cf80-4b2a-11e9-a532-07f768aa6c74"
  * }
- * 
- * 
+ *
+ *
  * @apiSuccessExample {Object} Success-Response:
  *{
  *    "id": "0a40cf80-4b2a-11e9-a532-07f768aa6c74",
@@ -72,8 +73,8 @@
  *        "ownedById": "0a3bed80-4b2a-11e9-a532-07f768aa6c74"
  *    }
  *}
- * 
- * 
+ *
+ *
  */
 
 module.exports = function getBanById(app) {
@@ -82,14 +83,14 @@ module.exports = function getBanById(app) {
       id,
     } = req.params;
     return app.models.Ban.findByPk(id, {
-        include: [app.models.Player, app.models.Game, app.models.Server, app.models.Reason],
-      })
+      include: [app.models.Player, app.models.Game, app.models.Server, app.models.Reason],
+    })
       .then((ban) => {
         if (ban === null) {
           res.status(404);
           return res.end();
         }
-        let response = {
+        const response = {
           id: ban.id,
           bannedUntil: ban.bannedUntil,
           status: ban.status,
@@ -104,4 +105,4 @@ module.exports = function getBanById(app) {
         return res.json(response);
       });
   });
-}
+};

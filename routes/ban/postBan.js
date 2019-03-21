@@ -3,21 +3,21 @@ const {
 } = require('luxon');
 const _ = require('lodash');
 /**
- * 
+ *
  * @api {POST} /ban POST /ban
  * @apiName PostBan
  * @apiGroup Ban
- * 
- * 
+ *
+ *
  * @apiParam  {String} bannedUntil ISO DateTime
  * @apiParam  {String} steamId Steam64 ID
- * 
+ *
  * @apiSuccess (200) {Object} ban The newly created ban
  * @apiSuccess {String}   ban.id UUID
  * @apiSuccess {Date}   ban.bannedUntil Date when the ban expires
  * @apiSuccess {Enum} ban.status active, elapsed or deleted
  * @apiSuccess {boolean} ban.verified
- * 
+ *
  * @apiParamExample  {type} Request-Example:
  * {
  *     "bannedUntil": "2019-05-15T08:30:00",
@@ -25,8 +25,8 @@ const _ = require('lodash');
  *     "reason": "other",
  *     "game": "7d2d"
  * }
- * 
- * 
+ *
+ *
  * @apiSuccessExample {type} Success-Response:
  * {
  *     "id": "f151e930-4c07-11e9-a3be-61e864bef7f5",
@@ -36,8 +36,8 @@ const _ = require('lodash');
  *     "createdAt": "2019-03-21T18:34:20.868Z",
  *     "updatedAt": "2019-03-21T18:34:20.868Z"
  * }
- * 
- * 
+ *
+ *
  */
 
 module.exports = function postBan(app) {
@@ -52,7 +52,7 @@ module.exports = function postBan(app) {
       bannedUntil,
       steamId,
       reason,
-      game
+      game,
     } = req.body;
 
     if (_.isEmpty(bannedUntil)) {
@@ -113,8 +113,8 @@ module.exports = function postBan(app) {
 
     let isValidGame = false;
     let GameId;
-    app.supportedGames.forEach((game) => {
-      if (req.body.game.toLowerCase() === game.code.toLowerCase()) {
+    app.supportedGames.forEach((supportedGame) => {
+      if (req.body.game.toLowerCase() === supportedGame.code.toLowerCase()) {
         isValidGame = true;
         GameId = game.id;
       }
@@ -122,7 +122,7 @@ module.exports = function postBan(app) {
 
     if (!isValidGame) {
       res.status(400);
-      res.send(`Game must be one of: ${app.supportedGames.map(game => game.code).join(', ')}`);
+      res.send(`Game must be one of: ${app.supportedGames.map(supportedGame => supportedGame.code).join(', ')}`);
       return res.end();
     }
 
@@ -138,7 +138,7 @@ module.exports = function postBan(app) {
       GameId,
       PlayerId: playerProfiles[0].id,
     }).then((newBan) => {
-      let response = {
+      const response = {
         id: newBan.id,
         bannedUntil: newBan.bannedUntil,
         status: newBan.status,
@@ -151,4 +151,4 @@ module.exports = function postBan(app) {
       next(e);
     });
   });
-}
+};

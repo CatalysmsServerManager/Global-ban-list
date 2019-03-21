@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const _ = require('lodash');
 
 /**
@@ -102,7 +103,7 @@ module.exports = function searchBans(app) {
       });
       if (_.isNull(player)) {
         res.status(404);
-        return next('Unknown steamId')
+        return next('Unknown steamId');
       }
       bans = await app.models.Ban.findAll({
         where: {
@@ -129,6 +130,6 @@ module.exports = function searchBans(app) {
       server: b.Server,
     }));
     res.send(bans);
-    res.end();
+    return res.end();
   });
-}
+};
