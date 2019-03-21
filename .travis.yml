@@ -11,9 +11,10 @@ install:
 script:
   - npm run lint
   - npm run db:init
-  - npm test
+  - npm run test:cover
 
 after_success:
+  - npm run test:coveralls
   - npm pack
   - npm run docs:api
 
