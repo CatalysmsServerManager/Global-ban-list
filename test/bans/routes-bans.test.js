@@ -6,10 +6,10 @@ const faker = require('faker');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
-const mock = require('./mock');
+const mock = require('../mock');
 
 // Start the server
-const server = require('../bin/www');
+const server = require('../../bin/www');
 
 const validSteamId = '76561198028175941';
 const should = chai.should(); // eslint-disable-line no-unused-vars
@@ -17,11 +17,11 @@ const should = chai.should(); // eslint-disable-line no-unused-vars
 const {
   reasons,
   games,
-} = require('../config/constants');
+} = require('../../config/constants');
 
 const {
   sequelize,
-} = require('../models');
+} = require('../../models');
 
 chai.use(chaiHttp);
 
