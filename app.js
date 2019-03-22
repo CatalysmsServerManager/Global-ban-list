@@ -16,18 +16,8 @@ const app = express();
 
 // Initialize database connection
 app.models = require('./models');
-
-console.log('-----------------------------------------');
-console.log(' ');
-console.log('Starting database initialization.');
-console.log(' ');
-console.log('-----------------------------------------');
 app.models.sequelize.sync().then(() => {
-  console.log('-----------------------------------------');
-  console.log(' ');
   console.log('Finished database initialization');
-  console.log(' ');
-  console.log('-----------------------------------------');
   app.models.Game.findAll().then((games) => {
     const supportedGames = games.map(game => game.dataValues);
     app.supportedGames = supportedGames;

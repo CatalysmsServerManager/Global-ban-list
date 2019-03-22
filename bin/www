@@ -89,6 +89,14 @@ function onListening() {
     'port ' + addr.port;
 
   if (process.env.NODE_ENV !== "test") {
+    console.log(`
+    ██████╗ ██████╗ ██╗     
+    ██╔════╝ ██╔══██╗██║     
+    ██║  ███╗██████╔╝██║     
+    ██║   ██║██╔══██╗██║     
+    ╚██████╔╝██████╔╝███████╗
+     ╚═════╝ ╚═════╝ ╚══════╝                        
+    `)
     console.log('Listening on ' + bind);
   }
 }
