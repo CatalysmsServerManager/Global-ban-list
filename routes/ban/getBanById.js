@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 /**
  *
- * @api {GET} /ban/:id GET /ban/:id
- * @apiName GET /ban/:id
+ * @api {GET} /api/ban/:id GET /api/ban/:id
+ * @apiName GET /api/ban/:id
  * @apiGroup Ban
  *
  *
@@ -78,7 +78,7 @@
  */
 
 module.exports = function getBanById(app) {
-  app.get('/ban/:id', (req, res) => {
+  app.get('/api/ban/:id', (req, res) => {
     const {
       id,
     } = req.params;

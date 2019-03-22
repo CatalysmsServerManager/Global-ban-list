@@ -4,7 +4,7 @@ const {
 const _ = require('lodash');
 /**
  *
- * @api {POST} /ban POST /ban
+ * @api {POST} /api/ban POST /api/ban
  * @apiName PostBan
  * @apiGroup Ban
  *
@@ -41,7 +41,7 @@ const _ = require('lodash');
  */
 
 module.exports = function postBan(app) {
-  app.post('/ban', async (req, res, next) => {
+  app.post('/api/ban', async (req, res, next) => {
     if (_.isEmpty(req.body)) {
       res.status(400);
       res.send('Empty body.');
