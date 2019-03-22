@@ -11,7 +11,7 @@ module.exports = function mockServer(username, steamId) {
   }
 
   if (_.isUndefined(steamId)) {
-    steamId = faker.random.number();
+    steamId = faker.random.number(76561190000000000, 76561200000000000);
   }
 
   const user = {

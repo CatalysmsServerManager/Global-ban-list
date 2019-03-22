@@ -12,7 +12,7 @@ module.exports = async function mockPlayer(UserId, steamId, username) {
   }
 
   if (_.isUndefined(steamId)) {
-    steamId = faker.random.number();
+    steamId = faker.random.number(76561190000000000, 76561200000000000);
   }
 
   if (_.isUndefined(UserId)) {
