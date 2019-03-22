@@ -8,7 +8,7 @@
     "test": "./node_modules/.bin/mocha --exit",
     "test:cover": "nyc --report-dir ./coverage --reporter=html --reporter=text-summary node_modules/mocha/bin/_mocha --exit",
     "test:coveralls": "nyc npm run test:cover  && nyc report --reporter=text-lcov | coveralls",
-    "lint": "./node_modules/.bin/eslint routes/ models/ helpers/ app.js public/js",
+    "lint": "./node_modules/.bin/eslint routes/ models/ helpers/ lib/ app.js public/js",
     "lint:fix": "npm run lint -- --fix",
     "db:seed": "./node_modules/.bin/sequelize db:seed:all",
     "db:migrate": "./node_modules/.bin/sequelize db:migrate",

@@ -16,6 +16,7 @@ const app = express();
 
 // Initialize database connection
 app.models = require('./models');
+
 app.models.sequelize.sync().then(() => {
   logger.info('Finished database initialization');
   app.models.Game.findAll().then((games) => {
@@ -36,7 +37,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 if (process.env.NODE_ENV !== 'test') {
-  app.use(expressLogger('dev'));
+  app.use(expressLogger(':method :url :status :res[content-length] - :response-time ms', { stream: logger.stream }));
 }
 
 app.use(express.json());
