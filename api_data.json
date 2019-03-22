@@ -22,10 +22,186 @@
     "groupTitle": "Authentication"
   },
   {
+    "type": "get",
+    "url": "/api/ban",
+    "title": "GET /api/ban",
+    "name": "GET__api_ban",
+    "group": "Ban",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Steam64 ID</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "bans",
+            "description": "<p>List of bans for a player.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.id",
+            "description": "<p>UUID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "bans.bannedUntil",
+            "description": "<p>Date when the ban expires</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Enum",
+            "optional": false,
+            "field": "bans.status",
+            "description": "<p>active, elapsed or deleted</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "boolean",
+            "optional": false,
+            "field": "bans.verified",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "bans.game",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "bans.game.id",
+            "description": "<p>Integer ID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.game.code",
+            "description": "<p>short code for identifying the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.game.fullName",
+            "description": "<p>full game name</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "bans.reason",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "bans.reason.id",
+            "description": "<p>Integer ID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.reason.reasonShort",
+            "description": "<p>Short name of the reason</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.reason.reasonLong",
+            "description": "<p>Long description of the reason</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "bans.player",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.player.id",
+            "description": "<p>UUID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.player.steamId",
+            "description": "<p>Steam64 ID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.player.username",
+            "description": "<p>Name of the player</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "bans.server",
+            "description": "<p>Which server this ban belongs to</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.server.id",
+            "description": "<p>UUID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "bans.server.name",
+            "description": "<p>name of the server</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n[\n   {\n       \"id\": \"0a40cf80-4b2a-11e9-a532-07f768aa6c74\",\n       \"bannedUntil\": \"2020-01-27T18:27:34.000Z\",\n       \"status\": \"active\",\n       \"verified\": false,\n       \"createdAt\": \"2019-03-20T16:05:54.000Z\",\n       \"updatedAt\": \"2019-03-20T16:05:54.000Z\",\n       \"game\": {\n           \"id\": 2,\n           \"code\": \"rust\",\n           \"fullName\": \"Rust\",\n       },\n       \"reason\": {\n           \"id\": 3,\n           \"reasonShort\": \"Other\",\n           \"reasonLong\": \"General reason when the defaults do not cover the actual reason of the ban.\",\n       },\n       \"player\": {\n           \"id\": \"0a3fe520-4b2a-11e9-a532-07f768aa6c74\",\n           \"steamId\": \"78956\",\n           \"username\": \"Justice.Denesik\",\n       },\n       \"server\": {\n           \"id\": \"0a3e1060-4b2a-11e9-a532-07f768aa6c74\",\n           \"name\": \"Gleason, Zieme and Ratke\",\n       }\n   },\n   {\n       \"id\": \"0a929900-4b2a-11e9-a532-07f768aa6c74\",\n       \"bannedUntil\": \"2020-03-11T03:15:53.000Z\",\n       \"status\": \"active\",\n       \"verified\": false,\n       \"game\": {\n           \"id\": 1,\n           \"code\": \"7d2d\",\n           \"fullName\": \"7 Days to Die\",\n       },\n       \"reason\": {\n           \"id\": 3,\n           \"reasonShort\": \"Other\",\n           \"reasonLong\": \"General reason when the defaults do not cover the actual reason of the ban.\",\n       },\n       \"player\": {\n           \"id\": \"0a913970-4b2a-11e9-a532-07f768aa6c74\",\n           \"steamId\": \"76561198028175941\",\n           \"username\": \"Catalysm\",\n       },\n       \"server\": {\n           \"id\": \"0a3e1060-4b2a-11e9-a532-07f768aa6c74\",\n           \"name\": \"Gleason, Zieme and Ratke\",\n       }\n   }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/ban/searchBans.js",
+    "groupTitle": "Ban"
+  },
+  {
     "type": "GET",
-    "url": "/ban/:id",
-    "title": "GET /ban/:id",
-    "name": "GET__ban__id",
+    "url": "/api/ban/:id",
+    "title": "GET /api/ban/:id",
+    "name": "GET__api_ban__id",
     "group": "Ban",
     "parameter": {
       "fields": {
@@ -205,185 +381,9 @@
     "groupTitle": "Ban"
   },
   {
-    "type": "get",
-    "url": "/ban/:steamId",
-    "title": "GET /ban/:steamId",
-    "name": "GET__ban__steamId",
-    "group": "Ban",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Steam64 ID</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "bans",
-            "description": "<p>List of bans for a player.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.id",
-            "description": "<p>UUID</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "bans.bannedUntil",
-            "description": "<p>Date when the ban expires</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Enum",
-            "optional": false,
-            "field": "bans.status",
-            "description": "<p>active, elapsed or deleted</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "boolean",
-            "optional": false,
-            "field": "bans.verified",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "bans.game",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "bans.game.id",
-            "description": "<p>Integer ID</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.game.code",
-            "description": "<p>short code for identifying the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.game.fullName",
-            "description": "<p>full game name</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "bans.reason",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "bans.reason.id",
-            "description": "<p>Integer ID</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.reason.reasonShort",
-            "description": "<p>Short name of the reason</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.reason.reasonLong",
-            "description": "<p>Long description of the reason</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "bans.player",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.player.id",
-            "description": "<p>UUID</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.player.steamId",
-            "description": "<p>Steam64 ID</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.player.username",
-            "description": "<p>Name of the player</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "bans.server",
-            "description": "<p>Which server this ban belongs to</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.server.id",
-            "description": "<p>UUID</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "bans.server.name",
-            "description": "<p>name of the server</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n[\n   {\n       \"id\": \"0a40cf80-4b2a-11e9-a532-07f768aa6c74\",\n       \"bannedUntil\": \"2020-01-27T18:27:34.000Z\",\n       \"status\": \"active\",\n       \"verified\": false,\n       \"createdAt\": \"2019-03-20T16:05:54.000Z\",\n       \"updatedAt\": \"2019-03-20T16:05:54.000Z\",\n       \"game\": {\n           \"id\": 2,\n           \"code\": \"rust\",\n           \"fullName\": \"Rust\",\n       },\n       \"reason\": {\n           \"id\": 3,\n           \"reasonShort\": \"Other\",\n           \"reasonLong\": \"General reason when the defaults do not cover the actual reason of the ban.\",\n       },\n       \"player\": {\n           \"id\": \"0a3fe520-4b2a-11e9-a532-07f768aa6c74\",\n           \"steamId\": \"78956\",\n           \"username\": \"Justice.Denesik\",\n       },\n       \"server\": {\n           \"id\": \"0a3e1060-4b2a-11e9-a532-07f768aa6c74\",\n           \"name\": \"Gleason, Zieme and Ratke\",\n       }\n   },\n   {\n       \"id\": \"0a929900-4b2a-11e9-a532-07f768aa6c74\",\n       \"bannedUntil\": \"2020-03-11T03:15:53.000Z\",\n       \"status\": \"active\",\n       \"verified\": false,\n       \"game\": {\n           \"id\": 1,\n           \"code\": \"7d2d\",\n           \"fullName\": \"7 Days to Die\",\n       },\n       \"reason\": {\n           \"id\": 3,\n           \"reasonShort\": \"Other\",\n           \"reasonLong\": \"General reason when the defaults do not cover the actual reason of the ban.\",\n       },\n       \"player\": {\n           \"id\": \"0a913970-4b2a-11e9-a532-07f768aa6c74\",\n           \"steamId\": \"76561198028175941\",\n           \"username\": \"Catalysm\",\n       },\n       \"server\": {\n           \"id\": \"0a3e1060-4b2a-11e9-a532-07f768aa6c74\",\n           \"name\": \"Gleason, Zieme and Ratke\",\n       }\n   }\n]",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "routes/ban/searchBans.js",
-    "groupTitle": "Ban"
-  },
-  {
     "type": "POST",
-    "url": "/ban",
-    "title": "POST /ban",
+    "url": "/api/ban",
+    "title": "POST /api/ban",
     "name": "PostBan",
     "group": "Ban",
     "parameter": {
