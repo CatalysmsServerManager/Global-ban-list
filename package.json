@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "test": "./node_modules/.bin/mocha --exit",
-    "test:cover": "nyc --report-dir ./coverage --reporter=html --reporter=text-summary node_modules/mocha/bin/_mocha --exit",
+    "test": "./node_modules/.bin/mocha test/**/*.test.js --exit",
+    "test:cover": "nyc --report-dir ./coverage --reporter=html --reporter=text-summary node_modules/mocha/bin/_mocha test/**/*.test.js --exit",
     "test:coveralls": "nyc npm run test:cover  && nyc report --reporter=text-lcov | coveralls",
     "lint": "./node_modules/.bin/eslint routes/ models/ helpers/ lib/ app.js public/js",
     "lint:fix": "npm run lint -- --fix",

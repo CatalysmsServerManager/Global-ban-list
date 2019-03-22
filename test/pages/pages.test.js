@@ -6,7 +6,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 
 // Start the server
-const server = require('../bin/www');
+const server = require('../../bin/www');
 
 const should = chai.should(); // eslint-disable-line no-unused-vars
 
