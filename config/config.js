@@ -6,7 +6,7 @@ module.exports = {
   dev: {
     url: process.env.DBSTRING,
     use_env_variable: 'DBSTRING',
-    logging: true,
+    logging: false,
   },
   test: {
     url: process.env.DBSTRING,

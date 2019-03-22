@@ -2,8 +2,8 @@
 const _ = require('lodash');
 
 /**
- * @api {get} /ban/:steamId GET /ban/:steamId
- * @apiName GET /ban/:steamId
+ * @api {get} /api/ban GET /api/ban
+ * @apiName GET /api/ban
  * @apiGroup Ban
  *
  * @apiParam {Number} id Steam64 ID
@@ -88,7 +88,7 @@ const _ = require('lodash');
  */
 
 module.exports = function searchBans(app) {
-  app.get('/ban', async (req, res, next) => {
+  app.get('/api/ban', async (req, res, next) => {
     const {
       steamId,
     } = req.query;

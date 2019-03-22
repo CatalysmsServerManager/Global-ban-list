@@ -27,7 +27,7 @@ chai.use(chaiHttp);
 
 
 describe('API v1 - Ban', () => {
-  describe('GET /ban', () => {
+  describe('GET /api/ban', () => {
     let mockPlayer;
     before(async () => {
       const player = await mock.player();
@@ -37,7 +37,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should GET all the bans', (done) => {
       chai.request(server)
-        .get('/ban')
+        .get('/api/ban')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('array');
@@ -46,7 +46,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should find bans based on steamId', (done) => {
       chai.request(server)
-        .get(`/ban?steamId=${mockPlayer.steamId}`)
+        .get(`/api/ban?steamId=${mockPlayer.steamId}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('array');
@@ -55,7 +55,7 @@ describe('API v1 - Ban', () => {
     });
     it('it returns 404 when unknown steamId is given', (done) => {
       chai.request(server)
-        .get(`/ban?steamId=notavalidId`)
+        .get(`/api/ban?steamId=notavalidId`)
         .end((err, res) => {
           res.should.have.status(404);
           done();
@@ -63,7 +63,7 @@ describe('API v1 - Ban', () => {
     });
   });
 
-  describe('GET /ban/:id', () => {
+  describe('GET /api/ban/:id', () => {
     let createdBan;
 
     before(async () => {
@@ -72,7 +72,7 @@ describe('API v1 - Ban', () => {
 
     it('it should return 200 for a valid ID.', (done) => {
       chai.request(server)
-        .get(`/ban/${createdBan.id}`)
+        .get(`/api/ban/${createdBan.id}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.id.should.be.equal(createdBan.id);
@@ -82,7 +82,7 @@ describe('API v1 - Ban', () => {
 
     it('it should return 404 for a unknown ID.', (done) => {
       chai.request(server)
-        .get(`/ban/${createdBan.id + 250}`)
+        .get(`/api/ban/${createdBan.id + 250}`)
         .end((err, res) => {
           res.should.have.status(404);
           done();
@@ -90,10 +90,10 @@ describe('API v1 - Ban', () => {
     });
   });
 
-  describe('POST /ban', () => {
+  describe('POST /api/ban', () => {
     it('it should return 200 when correct data is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           bannedUntil: faker.date.future(),
           reason: 'Other',
@@ -107,7 +107,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when a bannedUntil that is not a date is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           bannedUntil: 'not a date',
           reason: 'other',
@@ -119,7 +119,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when an empty bannedUntil is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           reason: 'other',
         })
@@ -130,7 +130,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when no parameters are given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .end((err, res) => {
           res.should.have.status(400);
           done();
@@ -138,7 +138,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when a invalid reason flag is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           bannedUntil: faker.date.future(),
           reason: 'being a nice person :)',
@@ -150,7 +150,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when no reason is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           bannedUntil: faker.date.future(),
           steamId: validSteamId,
@@ -162,7 +162,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when no game is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           bannedUntil: faker.date.future(),
           steamId: validSteamId,
@@ -175,7 +175,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when an invalid bannedUntil is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           reason: 'other',
           steamId: validSteamId,
@@ -189,7 +189,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when a bannedUntil in the past is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           bannedUntil: faker.date.past(4),
           reason: 'other',
@@ -203,7 +203,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when an invalid reason is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           bannedUntil: faker.date.future(),
           reason: 'sfqfqsfqs',
@@ -217,7 +217,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when an invalid game is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           bannedUntil: faker.date.future(),
           reason: 'other',
@@ -231,7 +231,7 @@ describe('API v1 - Ban', () => {
     });
     it('it should return 400 when an invalid steam ID is given', (done) => {
       chai.request(server)
-        .post('/ban')
+        .post('/api/ban')
         .send({
           bannedUntil: faker.date.future(),
           reason: 'other',

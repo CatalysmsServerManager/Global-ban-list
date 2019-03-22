@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const logger = require('../lib/logger');
+
 /**
  * Module dependencies.
  */
@@ -89,7 +91,15 @@ function onListening() {
     'port ' + addr.port;
 
   if (process.env.NODE_ENV !== "test") {
-    console.log('Listening on ' + bind);
+    logger.info(`
+    ██████╗ ██████╗ ██╗     
+    ██╔════╝ ██╔══██╗██║     
+    ██║  ███╗██████╔╝██║     
+    ██║   ██║██╔══██╗██║     
+    ╚██████╔╝██████╔╝███████╗
+     ╚═════╝ ╚═════╝ ╚══════╝                        
+    `)
+    logger.info('Listening on ' + bind);
   }
 }
 

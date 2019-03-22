@@ -17,7 +17,6 @@ function requireFiles(directory, app) {
       if (validFileTypes.indexOf(fileName.split('.').pop()) === -1) return;
 
       // Require the file.
-      console.log(`Loading route - ${`${directory}/${fileName}`}`);
       require(`${directory}/${fileName}`)(app);
     }
   });
