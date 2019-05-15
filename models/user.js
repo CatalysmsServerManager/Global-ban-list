@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: () => DateTime.local().toISO(),
     },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    }
   }, {});
   User.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here

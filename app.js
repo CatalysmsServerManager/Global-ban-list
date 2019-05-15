@@ -3,8 +3,8 @@ require('dotenv').config();
 
 const createError = require('http-errors');
 const express = require('express');
+const session = require("express-session");
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const expressLogger = require('morgan');
 const fs = require('fs');
 const bodyParser = require('body-parser');
@@ -13,6 +13,7 @@ const PassportSteam = require('passport-steam');
 const logger = require('./lib/logger');
 
 const app = express();
+app.use(session({ secret: process.env.SESSION_SECRET }));
 
 // Initialize database connection
 app.models = require('./models');
@@ -45,20 +46,24 @@ app.use(express.urlencoded({
   extended: false,
 }));
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(Passport.initialize());
 app.use(Passport.session());
 
 Passport.serializeUser((user, done) => {
+  logger.info(`Serialized user ${user.id}`);
   done(null, user.id);
 });
 
 Passport.deserializeUser((id, done) => {
-  app.models.User.findByPk(id, (err, user) => {
-    done(err, user);
-  });
+  app.models.User.findByPk(id).then(result => {
+    logger.info(`Deserialized user ${result.id}`);
+    done(null, result);
+  }).catch(e => {
+    done(e)
+  })
+
 });
 
 Passport.use(new PassportSteam({
@@ -66,31 +71,31 @@ Passport.use(new PassportSteam({
   realm: process.env.HOSTNAME,
   apiKey: process.env.STEAM_API_KEY,
 },
-(async (identifier, profile, done) => {
-  const {
-    steamid,
-    personaname,
-    // eslint-disable-next-line no-underscore-dangle
-  } = profile._json;
-  try {
-    let user = await app.models.User.findOrCreate({
-      where: {
-        steamId: steamid,
-      },
-      defaults: {
-        username: personaname,
-        steamId: steamid,
-      },
-    });
-    if (user[1]) {
-      logger.info(`New user registered via steam ${steamid}`);
+  (async (identifier, profile, done) => {
+    const {
+      steamid,
+      personaname,
+      // eslint-disable-next-line no-underscore-dangle
+    } = profile._json;
+    try {
+      let user = await app.models.User.findOrCreate({
+        where: {
+          steamId: steamid,
+        },
+        defaults: {
+          username: personaname,
+          steamId: steamid,
+        },
+      });
+      if (user[1]) {
+        logger.info(`New user registered via steam ${steamid}`);
+      }
+      user = user[0].get({ plain: true });
+      return done(null, user);
+    } catch (error) {
+      return done(error);
     }
-    user = user[0].get({ plain: true });
-    return done(null, user);
-  } catch (error) {
-    return done(error);
-  }
-})));
+  })));
 
 require('./routes')(app);
 // catch 404 and forward to error handler

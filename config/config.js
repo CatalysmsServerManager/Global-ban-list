@@ -7,14 +7,17 @@ module.exports = {
     url: process.env.DBSTRING,
     use_env_variable: 'DBSTRING',
     logging: false,
+    dialect: 'mysql',
   },
   test: {
     url: process.env.DBSTRING,
     use_env_variable: 'DBSTRING',
-    logging: false
+    logging: false,
+    dialect: 'mysql',
   },
   production: {
     url: process.env.DBSTRING,
-    use_env_variable: 'DBSTRING'
+    use_env_variable: 'DBSTRING',
+    dialect: 'mysql',
   }
 }
