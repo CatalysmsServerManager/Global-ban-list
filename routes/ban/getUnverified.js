@@ -23,6 +23,7 @@ module.exports = function getUnverified(app) {
                 game: ban.game,
                 reason: ban.reason,
                 player: ban.player,
+                proof: ban.proof
             }
         })
 

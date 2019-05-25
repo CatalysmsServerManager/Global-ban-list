@@ -107,13 +107,13 @@ module.exports = function searchBans(app) {
       }
       bans = await app.models.ban.findAll({
         where: {
-          PlayerId: player.id,
+          player: player.id,
         },
-        include: [app.models.player, app.models.game, app.models.Server, app.models.reason],
+        include: [app.models.player, app.models.game, app.models.reason],
       });
     } else {
       bans = await app.models.ban.findAll({
-        include: [app.models.player, app.models.game, app.models.Server, app.models.reason],
+        include: [app.models.player, app.models.game, app.models.reason],
       });
     }
 
@@ -124,10 +124,10 @@ module.exports = function searchBans(app) {
       verified: b.verified,
       createdAt: b.createdAt,
       updatedAt: b.updatedAt,
-      game: b.Game,
-      reason: b.Reason,
-      player: b.Player,
-      server: b.Server,
+      game: b.game,
+      reason: b.reason,
+      player: b.player,
+      proof: b.proof
     }));
     res.send(bans);
     return res.end();

@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    proof: {
+      type: DataTypes.TEXT,
+      required: true,
+    }
   }, {
       name: {
         singular: 'ban',
