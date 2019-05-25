@@ -83,7 +83,7 @@ module.exports = function getBanById(app) {
       id,
     } = req.params;
     return app.models.ban.findByPk(id, {
-      include: [app.models.player, app.models.game, app.models.Server, app.models.reason],
+      include: [app.models.player, app.models.game, app.models.reason],
     })
       .then((ban) => {
         if (ban === null) {

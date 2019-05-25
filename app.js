@@ -20,7 +20,6 @@ app.models = require('./models');
 
 app.models.sequelize.sync().then(() => {
   logger.info('Finished database initialization');
-  console.log(Object.keys(app.models))
   app.models.game.findAll().then((games) => {
     const supportedGames = games.map(game => game.dataValues);
     app.supportedGames = supportedGames;
@@ -128,7 +127,7 @@ fs
   });
 
 process.on('unhandledRejection', (reason, p) => {
-  logger.error('Unhandled Rejection at: Promise', p, 'reason:', reason);
+  logger.error(`Unhandled Rejection at: Promise ${p} because: ${reason}`);
 });
 
 module.exports = app;

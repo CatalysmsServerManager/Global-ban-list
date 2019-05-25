@@ -21,10 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
     },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   }, {
       name: {
         singular: 'player',
@@ -33,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     });
   Player.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
-    Player.belongsTo(models.user, {});
   };
   return Player;
 };

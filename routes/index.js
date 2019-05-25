@@ -1,8 +1,9 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 const fs = require('fs');
-
 const validFileTypes = ['js'];
+
+const logger = require('../lib/logger');
 
 function requireFiles(directory, app) {
   fs.readdirSync(directory).forEach((fileName) => {
@@ -18,6 +19,7 @@ function requireFiles(directory, app) {
 
       // Require the file.
       require(`${directory}/${fileName}`)(app);
+      logger.debug(`Loaded route ${directory}/${fileName}`)
     }
   });
 }
