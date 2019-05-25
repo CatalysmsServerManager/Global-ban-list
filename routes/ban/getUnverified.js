@@ -20,10 +20,9 @@ module.exports = function getUnverified(app) {
                 verified: ban.verified,
                 createdAt: ban.createdAt,
                 updatedAt: ban.updatedAt,
-                game: ban.Game,
-                reason: ban.Reason,
-                player: ban.Player,
-                server: ban.Server,
+                game: ban.game,
+                reason: ban.reason,
+                player: ban.player,
             }
         })
 

@@ -97,10 +97,9 @@ module.exports = function getBanById(app) {
           verified: ban.verified,
           createdAt: ban.createdAt,
           updatedAt: ban.updatedAt,
-          game: ban.Game,
-          reason: ban.Reason,
-          player: ban.Player,
-          server: ban.Server,
+          game: ban.game,
+          reason: ban.reason,
+          player: ban.player,
         };
         return res.json(response);
       });
