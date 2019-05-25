@@ -18,7 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       values: reasons.map(r => r.reasonLong),
     },
-  }, {});
+  }, {
+    name: {
+      singular: 'reason',
+      plural: 'reasons'
+    }
+    });
   Reason.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
   };

@@ -26,7 +26,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-  }, {});
+  }, {
+    name: {
+      singular: 'user',
+      plural: 'users'
+    }
+    });
   User.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
   };

@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
     },
-  }, {});
+  }, {
+      name: {
+        singular: 'game',
+        plural: 'games'
+      }
+    });
   Game.associate = (models) => { // eslint-disable-line no-unused-vars
     // associations can be defined here
   };

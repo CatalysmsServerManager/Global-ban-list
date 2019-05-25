@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Ban = sequelize.define('Ban', {
+  const Ban = sequelize.define('ban', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
@@ -20,7 +20,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-  }, {});
+  }, {
+      name: {
+        singular: 'ban',
+        plural: 'bans'
+      }
+    });
   Ban.associate = (models) => {
     // associations can be defined here
     Ban.belongsTo(models.User, {
@@ -28,9 +33,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     Ban.belongsTo(models.User, {
       as: 'deletedBy',
-    });
-    Ban.belongsTo(models.Server, {
-      onDelete: 'CASCADE',
     });
     Ban.belongsTo(models.Player, {
       onDelete: 'CASCADE',
