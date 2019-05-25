@@ -19,5 +19,5 @@ module.exports = function mockServer(username, steamId) {
     steamId,
   };
 
-  return sequelize.models.User.create(user);
+  return sequelize.models.user.create(user);
 };

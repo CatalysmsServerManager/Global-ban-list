@@ -26,5 +26,5 @@ module.exports = async function mockPlayer(UserId, steamId, username) {
     UserId,
   };
 
-  return sequelize.models.Player.create(player);
+  return sequelize.models.player.create(player);
 };

@@ -7,7 +7,7 @@ module.exports = async (models, steamIds) => request.get('https://api.steampower
     steamids: steamIds.join(','),
   },
   json: true,
-}).then(response => Promise.all(response.response.players.map(player => models.Player.findOrCreate({
+}).then(response => Promise.all(response.response.players.map(player => models.player.findOrCreate({
   where: {
     steamId: player.steamid,
   },

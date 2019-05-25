@@ -5,7 +5,7 @@ module.exports = function getBanById(app) {
     const {
       id,
     } = req.params;
-    return app.models.User.findByPk(id)
+    return app.models.user.findByPk(id)
       .then((user) => {
         if (user === null) {
           res.status(404);

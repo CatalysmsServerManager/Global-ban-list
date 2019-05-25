@@ -82,8 +82,8 @@ module.exports = function getBanById(app) {
     const {
       id,
     } = req.params;
-    return app.models.Ban.findByPk(id, {
-      include: [app.models.Player, app.models.Game, app.models.Server, app.models.Reason],
+    return app.models.ban.findByPk(id, {
+      include: [app.models.player, app.models.game, app.models.Server, app.models.reason],
     })
       .then((ban) => {
         if (ban === null) {

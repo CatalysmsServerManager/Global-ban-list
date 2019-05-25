@@ -1,5 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
   const Ban = sequelize.define('ban', {
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      name: 'createdAt',
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      name: 'updatedAt',
+      field: 'updated_at'
+    },
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
@@ -15,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'active',
       required: true,
     },
-    deletedAt: DataTypes.DATE,
     verified: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -28,19 +38,19 @@ module.exports = (sequelize, DataTypes) => {
     });
   Ban.associate = (models) => {
     // associations can be defined here
-    Ban.belongsTo(models.User, {
+    Ban.belongsTo(models.user, {
       as: 'bannedBy',
     });
-    Ban.belongsTo(models.User, {
+    Ban.belongsTo(models.user, {
       as: 'deletedBy',
     });
-    Ban.belongsTo(models.Player, {
+    Ban.belongsTo(models.player, {
       onDelete: 'CASCADE',
     });
-    Ban.belongsTo(models.Reason, {
+    Ban.belongsTo(models.reason, {
       onDelete: 'CASCADE',
     });
-    Ban.belongsTo(models.Game, {
+    Ban.belongsTo(models.game, {
       onDelete: 'CASCADE',
     });
   };

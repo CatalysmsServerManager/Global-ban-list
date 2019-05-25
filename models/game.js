@@ -1,5 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
-  const Game = sequelize.define('Game', {
+  const Game = sequelize.define('game', {
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      name: 'createdAt',
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      name: 'updatedAt',
+      field: 'updated_at'
+    },
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

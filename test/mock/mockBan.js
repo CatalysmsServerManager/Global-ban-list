@@ -34,5 +34,5 @@ module.exports = async function mockBan(ServerId, PlayerId) {
     GameId,
   };
 
-  return sequelize.models.Ban.create(ban);
+  return sequelize.models.ban.create(ban);
 };

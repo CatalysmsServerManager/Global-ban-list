@@ -96,7 +96,7 @@ module.exports = function searchBans(app) {
     let bans;
 
     if (!_.isEmpty(steamId)) {
-      const player = await app.models.Player.findOne({
+      const player = await app.models.player.findOne({
         where: {
           steamId,
         },
@@ -105,15 +105,15 @@ module.exports = function searchBans(app) {
         res.status(404);
         return next('Unknown steamId');
       }
-      bans = await app.models.Ban.findAll({
+      bans = await app.models.ban.findAll({
         where: {
           PlayerId: player.id,
         },
-        include: [app.models.Player, app.models.Game, app.models.Server, app.models.Reason],
+        include: [app.models.player, app.models.game, app.models.Server, app.models.reason],
       });
     } else {
-      bans = await app.models.Ban.findAll({
-        include: [app.models.Player, app.models.Game, app.models.Server, app.models.Reason],
+      bans = await app.models.ban.findAll({
+        include: [app.models.player, app.models.game, app.models.Server, app.models.reason],
       });
     }
 

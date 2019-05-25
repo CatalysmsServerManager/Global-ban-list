@@ -132,7 +132,7 @@ module.exports = function postBan(app) {
     }
 
 
-    return app.models.Ban.create({
+    return app.models.ban.create({
       bannedUntil,
       ReasonId,
       GameId,

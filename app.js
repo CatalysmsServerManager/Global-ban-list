@@ -20,13 +20,14 @@ app.models = require('./models');
 
 app.models.sequelize.sync().then(() => {
   logger.info('Finished database initialization');
-  app.models.Game.findAll().then((games) => {
+  console.log(Object.keys(app.models))
+  app.models.game.findAll().then((games) => {
     const supportedGames = games.map(game => game.dataValues);
     app.supportedGames = supportedGames;
     logger.info(`Initialized ${supportedGames.length} supported games. ${supportedGames.map(game => game.fullName).join(', ')}`);
   });
 
-  app.models.Reason.findAll().then((reasons) => {
+  app.models.reason.findAll().then((reasons) => {
     const supportedReasons = reasons.map(reason => reason.dataValues);
     app.supportedReasons = supportedReasons;
     logger.info(`Initialized ${supportedReasons.length} supported reasons. ${supportedReasons.map(reason => reason.reasonShort).join(', ')}`);
@@ -57,7 +58,7 @@ Passport.serializeUser((user, done) => {
 });
 
 Passport.deserializeUser((id, done) => {
-  app.models.User.findByPk(id).then((result) => {
+  app.models.user.findByPk(id).then((result) => {
     logger.info(`Deserialized user ${result.id}`);
     done(null, result);
   }).catch((e) => {
@@ -70,31 +71,31 @@ Passport.use(new PassportSteam({
   realm: process.env.HOSTNAME,
   apiKey: process.env.STEAM_API_KEY,
 },
-(async (identifier, profile, done) => {
-  const {
-    steamid,
-    personaname,
-    // eslint-disable-next-line no-underscore-dangle
-  } = profile._json;
-  try {
-    let user = await app.models.User.findOrCreate({
-      where: {
-        steamId: steamid,
-      },
-      defaults: {
-        username: personaname,
-        steamId: steamid,
-      },
-    });
-    if (user[1]) {
-      logger.info(`New user registered via steam ${steamid}`);
+  (async (identifier, profile, done) => {
+    const {
+      steamid,
+      personaname,
+      // eslint-disable-next-line no-underscore-dangle
+    } = profile._json;
+    try {
+      let user = await app.models.user.findOrCreate({
+        where: {
+          steamId: steamid,
+        },
+        defaults: {
+          username: personaname,
+          steamId: steamid,
+        },
+      });
+      if (user[1]) {
+        logger.info(`New user registered via steam ${steamid}`);
+      }
+      user = user[0].get({ plain: true });
+      return done(null, user);
+    } catch (error) {
+      return done(error);
     }
-    user = user[0].get({ plain: true });
-    return done(null, user);
-  } catch (error) {
-    return done(error);
-  }
-})));
+  })));
 
 require('./routes')(app);
 // catch 404 and forward to error handler
